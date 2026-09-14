@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full flex flex-col font-sans antialiased text-slate-100 selection:bg-indigo-500 selection:text-white">
+
+  <!-- Navbar compartido -->
+  <%- include('partials/navbar') %>
+
+  <!-- Contenido Principal -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Hero Header -->
+    <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center space-x-2 text-xs font-semibold text-indigo-400 bg-indigo-950/60 border border-indigo-800/40 px-3 py-1 rounded-full mb-3">
+            <span>🚀 10 Semanas de Desarrollo Colaborativo</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
+            Panel de Control Superadmin
+          </h1>
+          <p class="text-slate-400 text-sm mt-2 max-w-2xl">
+            Plataforma universitaria Backend-as-a-Service (BaaS) con persistencia SQLite y resolución estratégica de conflictos en Git.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <span class="block text-xs text-slate-400">Estado del Sistema</span>
+            <span class="text-sm font-bold text-emerald-400">● <%= stats.systemStatus %></span>
+          </div>
+          <div class="h-10 w-px bg-slate-800"></div>
+          <div class="text-right">
+            <span class="block text-xs text-slate-400">Versión</span>
+            <span class="text-sm font-mono font-bold text-slate-200">v<%= stats.version %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjetas de Métricas Globales (Owner) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Métrica 1: Tenants -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Tenants Registrados</span>
+          <span class="p-2 bg-indigo-950/80 text-indigo-400 rounded-lg text-lg">🏢</span>
+        </div>
+        <div class="mt-4 flex items-baseline">
+          <span class="text-3xl font-extrabold text-white"><%= stats.totalTenants %></span>
+          <span class="ml-2 text-xs font-medium text-emerald-400">(<%= stats.activeTenants %> activos)</span>
+        </div>
+        <span class="text-xs text-slate-500 mt-2 block">Módulo Integrante 1</span>
+      </div>
+
+      <!-- Métrica 2: Usuarios -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Usuarios Asignados</span>
+          <span class="p-2 bg-purple-950/80 text-purple-400 rounded-lg text-lg">👥</span>
+        </div>
+        <div class="mt-4 flex items-baseline">
+          <span class="text-3xl font-extrabold text-white"><%= stats.totalUsers %></span>
+          <span class="ml-2 text-xs text-slate-400">en tenants</span>
+        </div>
+        <span class="text-xs text-slate-500 mt-2 block">Módulo Integrante 3</span>
+      </div>
+
+      <!-- Métrica 3: Reportes -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Reportes Generados</span>
+          <span class="p-2 bg-amber-950/80 text-amber-400 rounded-lg text-lg">📈</span>
+        </div>
+        <div class="mt-4 flex items-baseline">
+          <span class="text-3xl font-extrabold text-white"><%= stats.totalReports %></span>
+          <span class="ml-2 text-xs text-slate-400">analíticas</span>
+        </div>
+        <span class="text-xs text-slate-500 mt-2 block">Módulo Integrante 4</span>
+      </div>
+
+      <!-- Métrica 4: Motor BD -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Motor de Datos</span>
+          <span class="p-2 bg-emerald-950/80 text-emerald-400 rounded-lg text-lg">💾</span>
+        </div>
+        <div class="mt-4">
+          <span class="text-xl font-bold text-white">SQLite 3</span>
+          <span class="block text-xs font-mono text-slate-400 truncate mt-1"><%= stats.dbPath %></span>
+        </div>
+        <span class="text-xs text-slate-500 mt-2 block">Drizzle ORM</span>
+      </div>
+    </div>
+
+    <!-- Listado de Tenants Actuales -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h2 class="text-base font-bold text-white">Tenants Registrados (Organizaciones)</h2>
+          <p class="text-xs text-slate-400">Datos cargados desde la base de datos SQLite.</p>
+        </div>
+        <a href="/api/tenants" target="_blank" class="text-xs font-medium text-indigo-400 hover:text-indigo-300">
+          Ver JSON API &rarr;
+        </a>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-950/70 text-slate-400 uppercase font-semibold border-b border-slate-800">
+            <tr>
+              <th class="px-5 py-3">ID</th>
+              <th class="px-5 py-3">Organización</th>
+              <th class="px-5 py-3">Subdominio</th>
+              <th class="px-5 py-3">Plan</th>
+              <th class="px-5 py-3">Estado</th>
+              <th class="px-5 py-3">Fecha Alta</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            <% tenants.forEach(t => { %>
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="px-5 py-3 font-mono text-slate-400"><%= t.id %></td>
+                <td class="px-5 py-3 font-semibold text-white"><%= t.name %></td>
+                <td class="px-5 py-3 font-mono text-indigo-300"><%= t.subdomain %>.baas.local</td>
+                <td class="px-5 py-3">
+                  <span class="inline-block px-2 py-0.5 rounded text-[11px] font-semibold uppercase <%= t.plan === 'enterprise' ? 'bg-purple-950 text-purple-300 border border-purple-800' : 'bg-slate-800 text-slate-300' %>">
+                    <%= t.plan %>
+                  </span>
+                </td>
+                <td class="px-5 py-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-950 text-emerald-300 border border-emerald-800/80">
+                    <%= t.status %>
+                  </span>
+                </td>
+                <td class="px-5 py-3 text-slate-500 font-mono"><%= new Date(t.createdAt).toLocaleDateString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer compartido -->
+  <%- include('partials/footer') %>
+
+</body>
+</html>

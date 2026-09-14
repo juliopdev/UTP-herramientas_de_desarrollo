@@ -1,0 +1,63 @@
+{
+  "platform": {
+    "name": "BaaS Lite Platform",
+    "version": "1.0.0",
+    "status": "online",
+    "createdAt": "2026-07-14T00:00:00.000Z"
+  },
+  "tenants": [
+    {
+      "id": "tenant-001",
+      "name": "Acme Corporation",
+      "subdomain": "acme",
+      "status": "active",
+      "plan": "enterprise",
+      "createdAt": "2026-07-14T10:00:00.000Z"
+    },
+    {
+      "id": "tenant-002",
+      "name": "Globex Retail",
+      "subdomain": "globex",
+      "status": "active",
+      "plan": "starter",
+      "createdAt": "2026-07-14T11:30:00.000Z"
+    }
+  ],
+  "collections": [
+    {
+      "id": "col-001",
+      "tenantId": "tenant-001",
+      "name": "products",
+      "recordsCount": 12,
+      "createdAt": "2026-07-14T12:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "usr-001",
+      "tenantId": "tenant-001",
+      "name": "Carlos Mendoza",
+      "email": "carlos@acme.com",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "id": "usr-002",
+      "tenantId": "tenant-002",
+      "name": "Ana Gómez",
+      "email": "ana@globex.com",
+      "role": "editor",
+      "status": "active"
+    }
+  ],
+  "reports": [
+    {
+      "id": "rep-001",
+      "tenantId": "tenant-001",
+      "title": "Consumo Mensual Q2",
+      "storageMb": 42.5,
+      "apiCalls": 18450,
+      "status": "generated"
+    }
+  ]
+}

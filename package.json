@@ -1,0 +1,21 @@
+{
+  "name": "baas-lite-platform",
+  "version": "1.0.0",
+  "description": "Plataforma BaaS Universitaria - Gestión de ramas y resolución de conflictos Git",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": ["university", "git-flow", "conflicts", "express", "sqlite", "drizzle"],
+  "author": "Equipo de Desarrollo UTP",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.45.2",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
