@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ownerRouter } from './modules/owner/owner.routes.js';
+import { tenantsRouter } from './modules/tenants/tenants.routes.js';
 
 export const apiRouter = Router();
 
@@ -10,6 +11,7 @@ export const apiRouter = Router();
 apiRouter.use('/', ownerRouter);
 
 // ── Espacio reservado para registro de módulos del equipo ──
+apiRouter.use('/api/tenants', tenantsRouter);
 // [SEMANA 1]: Integrante 1 e Integrante 2 registrarán sus prefijos de ruta aquí:
 // Ej: apiRouter.use('/api/tenants', tenantsRouter);
 // Ej: apiRouter.use('/api/data', dataRouter);
