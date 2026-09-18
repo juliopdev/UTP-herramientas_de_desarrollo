@@ -41,5 +41,19 @@ export const tenantsController = {
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
-  }
+  },
+
+  // Cambiar estado activo / suspendido
+  async toggleStatus(req, res) {
+    try {
+      const { id } = req.params;
+      const current = await db.select().from(tenants).where(eq(tenants.id, id)).get();
+      if (!current) return res.status(404).json({ success: false, message: 'No encontrado' });
+      const nextStatus = current.status === 'active' ? 'suspended' : 'active';
+      await db.update(tenants).set({ status: nextStatus }).where(eq(tenants.id, id));
+      res.json({ success: true, message: `Estado cambiado a ${nextStatus}` });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
