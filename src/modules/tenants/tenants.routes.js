@@ -7,3 +7,4 @@ export const tenantsRouter = Router();
 tenantsRouter.get('/', tenantsController.list);
 tenantsRouter.get('/:id', tenantsController.getById);
 tenantsRouter.post('/', tenantsController.create);
+tenantsRouter.patch('/:id/status', tenantsController.toggleStatus);
