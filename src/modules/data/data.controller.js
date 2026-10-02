@@ -30,4 +30,23 @@ export const dataController = {
       res.status(500).json({ success: false, error: error.message });
     }
   }
+
+  // Insertar registro dinámico
+   async insertRecord(req, res) {
+    try {
+      const { collectionId } = req.params;
+      const { tenantId, data } = req.body;
+      const newRec = {
+        id: `rec-${Date.now()}`,
+        collectionId,
+        tenantId: tenantId || 'tenant-001',
+        dataJson: JSON.stringify(data || {}),
+        createdAt: new Date().toISOString()
+      };
+      await db.insert(records).values(newRec);
+      res.status(201).json({ success: true, data: newRec });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };

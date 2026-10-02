@@ -6,3 +6,4 @@ export const dataRouter = Router();
 // Endpoints del módulo de Datos Dinámicos (Integrante 2)
 dataRouter.get('/collections', dataController.listCollections);
 dataRouter.post('/collections', dataController.createCollection);
+dataRouter.post('/collections/:collectionId/records', dataController.insertRecord);
