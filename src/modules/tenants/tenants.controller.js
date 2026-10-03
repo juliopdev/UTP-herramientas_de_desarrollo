@@ -1,12 +1,13 @@
 import { db } from '../../db/index.js';
 import { tenants } from '../../db/schema.js';
 import { eq } from 'drizzle-orm';
+import { desc } from 'drizzle-orm';
 
 export const tenantsController = {
   // Listar todos los tenants
   async list(req, res) {
     try {
-      const allTenants = await db.select().from(tenants);
+      const allTenants = await db.select().from(tenants).orderBy(desc(tenants.createdAt));
       res.json({ success: true, data: allTenants });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
