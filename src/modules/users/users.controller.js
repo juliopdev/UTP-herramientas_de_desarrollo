@@ -31,5 +31,19 @@ export const usersController = {
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
-  }
+  },
+  async updateRole(req, res) {
+    try {
+      const { id } = req.params;
+      const { role } = req.body;
+      const validRoles = ['admin', 'editor', 'viewer'];
+      if (!validRoles.includes(role)) {
+        return res.status(400).json({ success: false, message: 'Rol no válido' });
+      }
+      await db.update(users).set({ role }).where(eq(users.id, id));
+      res.json({ success: true, message: `Rol actualizado a ${role}` });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
