@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { ownerRouter } from './modules/owner/owner.routes.js';
 import { tenantsRouter } from './modules/tenants/tenants.routes.js';
 import { usersRouter } from './modules/users/users.routes.js';
+import { reportsRouter } from './modules/reports/reports.routes.js';
 
 export const apiRouter = Router();
 
@@ -19,3 +20,4 @@ apiRouter.use('/api/data',dataRouter);
 apiRouter.use('/api/tenants', tenantsRouter);
 apiRouter.use('/api/data', dataRouter);
 apiRouter.use('/api/users', usersRouter);
+apiRouter.use('/api/reports', reportsRouter);
