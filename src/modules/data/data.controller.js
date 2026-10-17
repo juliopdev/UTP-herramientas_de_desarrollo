@@ -49,4 +49,15 @@ export const dataController = {
       res.status(500).json({ success: false, error: error.message });
     }
   },
+
+  // Listar registros de una colección
+  async listRecords(req, res) {
+    try {
+      const { collectionId } = req.params;
+      const all = await db.select().from(records).where(eq(records.collectionId, collectionId));
+      res.json({ success: true, data: all });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  }
 };
