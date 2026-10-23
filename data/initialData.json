@@ -58,6 +58,14 @@
       "storageMb": 42.5,
       "apiCalls": 18450,
       "status": "generated"
+    },
+    {
+      "id": "rep-002",
+      "tenantId": "tenant-002",
+      "title": "Auditoría de Almacenamiento Q3",
+      "storageMb": 18.2,
+      "apiCalls": 9200,
+      "status": "generated"
     }
   ]
 }
