@@ -7,3 +7,4 @@ export const reportsRouter = Router();
 reportsRouter.get('/', reportsController.list);
 reportsRouter.post('/generate', reportsController.generate);
 reportsRouter.get('/summary/:tenantId', reportsController.getUsageSummary);
+reportsRouter.get('/export/:tenantId', reportsController.exportJson);

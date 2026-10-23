@@ -49,4 +49,33 @@ export const reportsController = {
       res.status(500).json({ success: false, error: error.message });
     }
   },
+
+  // Exportar reporte en JSON estructurado
+  async exportJson(req, res) {
+    try {
+      const { tenantId } = req.params;
+      const tenantReps = await db.select().from(reports).where(eq(reports.tenantId, tenantId));
+      if (tenantReps.length === 0) {
+        return res.status(404).json({ success: false, error: 'No se encontraron reportes para este tenant.' });
+      }
+      const exportData = {
+        exportedAt: new Date().toISOString(),
+        tenantId,
+        totalRecords: tenantReps.length,
+        reports: tenantReps.map(r => ({
+          id: r.id,
+          title: r.title,
+          storageMb: r.storageMb,
+          apiCalls: r.apiCalls,
+          status: r.status,
+          createdAt: r.createdAt
+        }))
+      };
+      res.setHeader('Content-Disposition', `attachment; filename="reports-${tenantId}.json"`);
+      res.setHeader('Content-Type', 'application/json');
+      res.json(exportData);
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
