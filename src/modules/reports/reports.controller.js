@@ -31,5 +31,22 @@ export const reportsController = {
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
-  }
+  },
+
+  // Resumen de consumo
+  async getUsageSummary(req, res) {
+    try {
+      const { tenantId } = req.params;
+      const tenantReps = await db.select().from(reports).where(eq(reports.tenantId, tenantId));
+      const totalStorage = tenantReps.reduce((acc, r) => acc + (r.storageMb || 0), 0);
+      const totalCalls = tenantReps.reduce((acc, r) => acc + (r.apiCalls || 0), 0);
+      res.json({
+        success: true,
+        tenantId,
+        summary: { totalReports: tenantReps.length, totalStorageMb: totalStorage, totalApiCalls: totalCalls }
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
