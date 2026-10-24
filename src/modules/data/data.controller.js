@@ -29,10 +29,10 @@ export const dataController = {
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
-  }
+  },
 
   // Insertar registro dinámico
-   async insertRecord(req, res) {
+  async insertRecord(req, res) {
     try {
       const { collectionId } = req.params;
       const { tenantId, data } = req.body;
@@ -59,5 +59,21 @@ export const dataController = {
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
-  }
+  },
+
+  // Eliminar colección por ID
+  async deleteCollection(req, res) {
+    try {
+      const { collectionId } = req.params;
+      const existing = await db.select().from(collections).where(eq(collections.id, collectionId));
+      if (existing.length === 0) {
+        return res.status(404).json({ success: false, error: 'Colección no encontrada.' });
+      }
+      await db.delete(collections).where(eq(collections.id, collectionId));
+      res.json({ success: true, message: `Colección ${collectionId} eliminada correctamente.` });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
+
 };
