@@ -1,0 +1,16 @@
+# Despliegue continuo de BaaS Lite en Netlify (rama de producción: main)
+[build]
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  external_node_modules = ["better-sqlite3"]
+  included_files = ["views/**", "data/initialData.json"]
+
+# Todas las rutas (dashboard + API) las atiende la función Express
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/api"
+  status = 200
+  force = true
