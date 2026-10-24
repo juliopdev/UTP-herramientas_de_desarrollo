@@ -1,12 +1,13 @@
 import { db } from '../../db/index.js';
 import { tenants } from '../../db/schema.js';
 import { eq } from 'drizzle-orm';
+import { desc } from 'drizzle-orm';
 
 export const tenantsController = {
   // Listar todos los tenants
   async list(req, res) {
     try {
-      const allTenants = await db.select().from(tenants);
+      const allTenants = await db.select().from(tenants).orderBy(desc(tenants.createdAt));
       res.json({ success: true, data: allTenants });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
@@ -41,5 +42,19 @@ export const tenantsController = {
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
-  }
+  },
+
+  // Cambiar estado activo / suspendido
+  async toggleStatus(req, res) {
+    try {
+      const { id } = req.params;
+      const current = await db.select().from(tenants).where(eq(tenants.id, id)).get();
+      if (!current) return res.status(404).json({ success: false, message: 'No encontrado' });
+      const nextStatus = current.status === 'active' ? 'suspended' : 'active';
+      await db.update(tenants).set({ status: nextStatus }).where(eq(tenants.id, id));
+      res.json({ success: true, message: `Estado cambiado a ${nextStatus}` });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };

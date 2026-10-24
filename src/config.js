@@ -12,6 +12,9 @@ export const config = {
   limits: {
     maxTenants: 50,
     maxRecordsPerTenant: 1000,
-    defaultPageSize: 10
+    defaultPageSize: 10,
+    maxReportsPerTenant: 100,
+    storageLimitMb: 500,
+    allowedRoles: ['admin', 'editor', 'viewer']
   }
 };

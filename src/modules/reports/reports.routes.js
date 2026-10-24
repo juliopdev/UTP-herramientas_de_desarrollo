@@ -6,3 +6,5 @@ export const reportsRouter = Router();
 // Endpoints del módulo de Reportes y Métricas (Integrante 4)
 reportsRouter.get('/', reportsController.list);
 reportsRouter.post('/generate', reportsController.generate);
+reportsRouter.get('/summary/:tenantId', reportsController.getUsageSummary);
+reportsRouter.get('/export/:tenantId', reportsController.exportJson);

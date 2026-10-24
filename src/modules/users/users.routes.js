@@ -6,3 +6,4 @@ export const usersRouter = Router();
 // Endpoints del módulo de Usuarios y Roles (Integrante 3)
 usersRouter.get('/', usersController.list);
 usersRouter.post('/', usersController.create);
+usersRouter.patch('/:id/role', usersController.updateRole);
