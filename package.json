@@ -1,6 +1,6 @@
 {
   "name": "baas-lite-platform",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Plataforma BaaS Universitaria - Resolucion del proyecto Final (Avance 2)",
   "main": "src/server.js",
   "type": "module",

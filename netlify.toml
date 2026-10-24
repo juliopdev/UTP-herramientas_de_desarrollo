@@ -1,6 +1,10 @@
 # Despliegue continuo de BaaS Lite en Netlify (rama de producción: main)
 [build]
   publish = "public"
+  command = "npm install --ignore-scripts && npm rebuild better-sqlite3"
+
+[build.environment]
+  NODE_VERSION = "20"
 
 [functions]
   directory = "netlify/functions"
