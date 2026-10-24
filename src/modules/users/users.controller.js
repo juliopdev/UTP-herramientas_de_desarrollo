@@ -21,6 +21,20 @@ export const usersController = {
   async create(req, res) {
     try {
       const { tenantId, name, email, role } = req.body;
+
+      // Validar unicidad de email por organización
+      if (email) {
+        const existing = await db.select().from(users)
+          .where(eq(users.email, email));
+        const duplicate = existing.find(u => u.tenantId === (tenantId || 'tenant-001'));
+        if (duplicate) {
+          return res.status(409).json({
+            success: false,
+            message: `El email ${email} ya está registrado en esta organización.`
+          });
+        }
+      }
+
       const newUser = {
         id: `usr-${Date.now()}`,
         tenantId: tenantId || 'tenant-001',
@@ -36,6 +50,7 @@ export const usersController = {
       res.status(500).json({ success: false, error: error.message });
     }
   },
+
   async updateRole(req, res) {
     try {
       const { id } = req.params;
