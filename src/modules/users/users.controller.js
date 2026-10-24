@@ -6,7 +6,11 @@ export const usersController = {
   // Listar usuarios
   async list(req, res) {
     try {
-      const allUsers = await db.select().from(users);
+      const { tenantId } = req.query;
+      const query = tenantId
+        ? db.select().from(users).where(eq(users.tenantId, tenantId))
+        : db.select().from(users);
+      const allUsers = await query;
       res.json({ success: true, data: allUsers });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
