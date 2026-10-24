@@ -7,3 +7,4 @@ export const dataRouter = Router();
 dataRouter.get('/collections', dataController.listCollections);
 dataRouter.post('/collections', dataController.createCollection);
 dataRouter.post('/collections/:collectionId/records', dataController.insertRecord);
+dataRouter.delete('/collections/:collectionId', dataController.deleteCollection);
