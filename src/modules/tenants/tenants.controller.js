@@ -36,6 +36,10 @@ export const tenantsController = {
         status: 'active',
         plan: plan || 'starter',
         createdAt: new Date().toISOString()
+      }
+      const existing = await db.select().from(tenants).where(eq(tenants.subdomain, subdomain)).get();
+      if (existing) {
+        return res.status(400).json({ success: false, message: 'El subdominio ya está en uso' });
       };
       await db.insert(tenants).values(newTenant);
       res.status(201).json({ success: true, data: newTenant });
