@@ -193,7 +193,8 @@
         });
         const json = await res.json().catch(() => ({}));
         if (res.ok) return location.reload();
-        form.querySelector('[data-msg]').textContent = json.message || json.error || `Error ${res.status}`;
+        const msg = form.querySelector('[data-msg]');
+        if (msg) msg.textContent = json.message || json.error || `Error ${res.status}`;
       });
     });
   </script>
