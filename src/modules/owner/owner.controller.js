@@ -10,6 +10,7 @@ export const ownerController = {
       const allTenants = await db.select().from(tenants);
       const allUsers = await db.select().from(users);
       const allReports = await db.select().from(reports);
+      const allCollections = await db.select().from(collections);
 
       const stats = {
         totalTenants: allTenants.length,
@@ -27,7 +28,8 @@ export const ownerController = {
         stats,
         tenants: allTenants,
         users: allUsers,
-        reports: allReports
+        reports: allReports,
+        collections: allCollections
       });
     } catch (error) {
       console.error('Error en renderDashboard:', error);
