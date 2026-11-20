@@ -1,0 +1,43 @@
+name: "✨ Solicitud de mejora"
+description: Propón una mejora o funcionalidad nueva para BaaS Lite.
+title: "[MEJORA] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: modulo
+    attributes:
+      label: Módulo
+      options: ["Owner / Dashboard", "Tenants", "Datos", "Usuarios", "Reportes", "Despliegue / CI"]
+    validations:
+      required: true
+  - type: textarea
+    id: problema
+    attributes:
+      label: Situación actual (pasos para observarla)
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado con la mejora
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Resultado actual
+    validations:
+      required: true
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidencia
+    validations:
+      required: true
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad sugerida
+      options: ["P1-crítica", "P2-alta", "P3-media", "P4-baja"]
+    validations:
+      required: true
