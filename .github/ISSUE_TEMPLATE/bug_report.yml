@@ -1,0 +1,57 @@
+name: "🐞 Reporte de error"
+description: Reporta un fallo de BaaS Lite para que el equipo lo reproduzca y lo corrija.
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Completa todos los campos. Al clasificar el issue se asigna el **responsable** y la etiqueta de **prioridad** (P1-P4).
+  - type: dropdown
+    id: modulo
+    attributes:
+      label: Módulo afectado
+      options: ["Owner / Dashboard", "Tenants", "Datos", "Usuarios", "Reportes", "Despliegue / CI"]
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducir
+      placeholder: |
+        1. Ejecutar `npm start`
+        2. Enviar `PATCH http://localhost:3000/api/users/usr-no-existe/role` con `{"role":"admin"}`
+        3. Ver la respuesta
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Resultado actual
+    validations:
+      required: true
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidencia
+      description: Captura, respuesta JSON o log. Puedes arrastrar la imagen aquí.
+    validations:
+      required: true
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad sugerida
+      options: ["P1-crítica", "P2-alta", "P3-media", "P4-baja"]
+    validations:
+      required: true
+  - type: input
+    id: entorno
+    attributes:
+      label: Entorno
+      placeholder: "Local, Node 24 / Netlify"
