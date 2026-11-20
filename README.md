@@ -15,9 +15,9 @@
 
 | | |
 | :--- | :--- |
-| **URL pública (Netlify)** | 👉 **<https://bass-lite.netlify.app>** *(se completa tras el primer deploy)* |
+| **URL pública (Netlify)** | 👉 **<https://bass-lite.netlify.app>** |
 | **Health check** | `/api/health` |
-| **Versión** | `v2.0.0` — Avance 2 |
+| **Versión** | `v2.2.0` — Avance 2 (release etiquetado en GitHub) |
 | **Publicación** | Automática desde `main` (cada merge a `main` dispara un deploy en Netlify) |
 
 > ⚠️ En Netlify la base SQLite vive en `/tmp` (disco efímero de la función serverless): se re-inicializa con `data/initialData.json` en cada arranque en frío. Es una demo; la persistencia real se obtiene ejecutando el proyecto en local.
@@ -72,13 +72,13 @@ El servidor estará disponible de inmediato en:
 
 ---
 
-## 🆕 Novedades del Avance 2 (`v2.0.0`)
+## 🆕 Novedades del Avance 2 (`v2.2.0`)
 
 **Flujo de trabajo y entrega**
-- Pull Requests con revisión cruzada entre integrantes y aprobación antes de unir a `main`.
-- Tablero Trello con tareas por responsable y espacio de comunicación del grupo (WhatsApp).
-- Despliegue continuo en Netlify conectado al repositorio: se publica únicamente al unir cambios a `main`.
-- Primera release etiquetada: `v2.0.0`.
+- Todo cambio de los integrantes llega a `main` mediante Pull Request, revisado y fusionado por el Owner.
+- Tablero de seguimiento «Mesa» con tareas y reuniones por responsable, y grupo de WhatsApp como canal de comunicación.
+- Despliegue continuo en Netlify conectado al repositorio: se publica únicamente desde la rama `main`.
+- Primera release etiquetada: `v2.2.0`.
 
 **Funcionalidades incorporadas por módulo**
 
