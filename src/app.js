@@ -46,6 +46,7 @@ app.use((req, res) => {
     stats: { totalTenants: 0, totalUsers: 0, totalReports: 0, systemStatus: '404' },
     tenants: [],
     users: [],
-    reports: []
+    reports: [],
+    collections: []
   });
 });
