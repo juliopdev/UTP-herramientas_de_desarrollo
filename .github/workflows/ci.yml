@@ -1,0 +1,30 @@
+# CI de BaaS Lite: instala, verifica (build) y prueba el proyecto en cada push y en cada PR hacia main
+name: CI
+
+on:
+  push:
+    branches: ['**']      # cualquier rama: cada integrante ve el resultado de sus propios push
+  pull_request:
+    branches: [main]      # y antes de unir cualquier PR a main
+
+jobs:
+  build-test:
+    name: build-test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22.x, 24.x]  # 22 = versión de Netlify, 24 = versión local del equipo
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+      - name: Instalar Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Instalar dependencias
+        run: npm install
+      - name: Compilar (build)
+        run: npm run build
+      - name: Ejecutar pruebas automáticas
+        run: npm test
