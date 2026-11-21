@@ -1,5 +1,15 @@
-<!-- Formulario de Reportes: lo completa Geanpier Meza en su issue de mejora -->
-<div class="tarjeta">
+<!-- Formulario de Reportes (Geanpier Meza) -->
+<form data-api="/api/reports/generate" class="tarjeta">
   <h2 class="text-base font-bold text-white">📈 Generar reporte</h2>
-  <p class="text-xs text-slate-500">Pendiente.</p>
-</div>
+  <select name="tenantId" class="campo">
+    <% tenants.forEach(t => { %><option value="<%= t.id %>"><%= t.name %></option><% }) %>
+  </select>
+  <input name="title" required placeholder="Título (ej. Consumo de noviembre)" class="campo">
+  <input name="storageMb" type="number" min="0" step="0.1" required placeholder="Almacenamiento (MB)" class="campo">
+  <input name="apiCalls" type="number" min="0" step="1" required placeholder="Llamadas a la API" class="campo">
+  <button class="boton">Generar</button>
+  <p data-msg class="text-xs text-rose-400"></p>
+  <ul class="text-xs text-slate-400 space-y-1">
+    <% reports.slice(-5).forEach(r => { %><li><%= r.title %> · <%= r.storageMb %> MB · <%= r.apiCalls %> llamadas</li><% }) %>
+  </ul>
+</form>
