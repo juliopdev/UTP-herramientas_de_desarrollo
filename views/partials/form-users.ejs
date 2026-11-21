@@ -1,5 +1,25 @@
-<!-- Formulario de Usuarios: lo completa David Torre en su issue de mejora -->
-<div class="tarjeta">
+<!-- Formulario de Usuarios (David Torre) -->
+<form data-api="/api/users" class="tarjeta">
   <h2 class="text-base font-bold text-white">👥 Registrar usuario</h2>
-  <p class="text-xs text-slate-500">Pendiente.</p>
-</div>
+  <select name="tenantId" class="campo">
+    <% tenants.forEach(t=> { %><option value="<%= t.id %>">
+        <%= t.name %>
+      </option>
+      <% }) %>
+  </select>
+  <input name="name" required placeholder="Nombre" class="campo">
+  <input name="email" type="email" required placeholder="correo@empresa.com" class="campo">
+  <select name="role" class="campo">
+    <option value="viewer">viewer</option>
+    <option value="editor">editor</option>
+    <option value="admin">admin</option>
+  </select>
+  <button class="boton">Registrar</button>
+  <p data-msg class="text-xs text-rose-400"></p>
+  <ul class="text-xs text-slate-400 space-y-1">
+    <% users.slice(-5).forEach(u=> { %><li>
+        <%= u.name %> · <%= u.role %> · <%= u.tenantId %>
+      </li>
+      <% }) %>
+  </ul>
+</form>
