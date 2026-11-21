@@ -1,5 +1,13 @@
-<!-- Formulario de Tenants: lo completa Christian Muñoa en su issue de mejora -->
-<div class="tarjeta">
+<!-- Formulario de Tenants (Christian Muñoa) -->
+<form data-api="/api/tenants" class="tarjeta">
   <h2 class="text-base font-bold text-white">🏢 Registrar tenant</h2>
-  <p class="text-xs text-slate-500">Pendiente.</p>
-</div>
+  <input name="name" required placeholder="Nombre de la organización" class="campo">
+  <input name="subdomain" required placeholder="Subdominio (ej. initech)" class="campo">
+  <select name="plan" class="campo">
+    <option value="starter">starter</option>
+    <option value="pro">pro</option>
+    <option value="enterprise">enterprise</option>
+  </select>
+  <button class="boton">Registrar</button>
+  <p data-msg class="text-xs text-rose-400"></p>
+</form>

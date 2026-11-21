@@ -16,3 +16,8 @@ test('POST /api/tenants acepta un subdominio válido', async () => {
   const { status } = await srv.request('POST', '/api/tenants', { name: 'Initech', subdomain: 'initech-pe' });
   assert.equal(status, 201);
 });
+
+test('el panel muestra el formulario de registro de tenants', async () => {
+  const { text } = await srv.request('GET', '/');
+  assert.match(text, /data-api="\/api\/tenants"/);
+});
