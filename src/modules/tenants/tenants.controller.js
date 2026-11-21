@@ -29,6 +29,10 @@ export const tenantsController = {
   async create(req, res) {
     try {
       const { name, subdomain, plan } = req.body;
+      // Subdominio: minúsculas, números y guiones; 3 a 32 caracteres; sin guion al inicio ni al final
+      if (subdomain !== undefined && !/^[a-z0-9](?:[a-z0-9-]{1,30})[a-z0-9]$/.test(subdomain)) {
+        return res.status(400).json({ success: false, message: 'Subdominio inválido: usa minúsculas, números y guiones (3 a 32 caracteres).' });
+      }
       const newTenant = {
         id: `tenant-${Date.now()}`,
         name: name || 'Nueva Organización',
