@@ -17,12 +17,17 @@ export const reportsController = {
   async generate(req, res) {
     try {
       const { tenantId, title, storageMb, apiCalls } = req.body;
+      const storage = Number(storageMb);
+      const calls = Number(apiCalls);
+      if (!Number.isFinite(storage) || storage < 0 || !Number.isInteger(calls) || calls < 0) {
+        return res.status(400).json({ success: false, message: 'storageMb y apiCalls son obligatorios y deben ser números positivos.' });
+      }
       const newReport = {
         id: `rep-${Date.now()}`,
         tenantId: tenantId || 'tenant-001',
         title: title || 'Reporte de Actividad',
-        storageMb: storageMb ? parseFloat(storageMb) : Math.round(Math.random() * 50 * 10) / 10,
-        apiCalls: apiCalls ? parseInt(apiCalls) : Math.floor(Math.random() * 5000) + 500,
+        storageMb: storage,
+        apiCalls: calls,
         status: 'generated',
         createdAt: new Date().toISOString()
       };
