@@ -1,5 +1,7 @@
 # 🚀 BaaS Lite Platform
 
+[![CI](https://github.com/juliopdev/UTP-herramientas_de_desarrollo/actions/workflows/ci.yml/badge.svg)](https://github.com/juliopdev/UTP-herramientas_de_desarrollo/actions/workflows/ci.yml)
+
 > **Proyecto Universitario:** Herramientas de Desarrollo — 8vo Ciclo  
 > **Tema Central:** Colaboración en equipo, gestión de ramas concurrentes y resolución estratégica de conflictos en GitHub. 
 
@@ -17,7 +19,7 @@
 | :--- | :--- |
 | **URL pública (Netlify)** | 👉 **<https://bass-lite.netlify.app>** |
 | **Health check** | `/api/health` |
-| **Versión** | `v2.2.0` — Avance 2 (release etiquetado en GitHub) |
+| **Versión** | `v3.0.0` — Avance 3 (release etiquetado en GitHub) |
 | **Publicación** | Automática desde `main` (cada merge a `main` dispara un deploy en Netlify) |
 
 > ⚠️ En Netlify la base SQLite vive en `/tmp` (disco efímero de la función serverless): se re-inicializa con `data/initialData.json` en cada arranque en frío. Es una demo; la persistencia real se obtiene ejecutando el proyecto en local.
@@ -26,7 +28,7 @@
 
 ## 🛠️ Stack Tecnológico
 
-- **Entorno de Ejecución:** Node.js (ES Modules)
+- **Entorno de Ejecución:** Node.js 22+ (ES Modules)
 - **Framework Web:** Express
 - **Motor de Vistas:** EJS
 - **Estilos:** TailwindCSS (vía CDN)
@@ -52,7 +54,7 @@
 
 ## ⚡ Instalación y Ejecución Local
 
-Para levantar el proyecto en tu máquina:
+Para levantar el proyecto en tu máquina (requiere **Node.js 22 o superior**):
 
 ```bash
 # 1. Clonar el repositorio
@@ -63,12 +65,47 @@ npm install
 
 # 3. Iniciar el servidor
 npm start
+
+# Verificación (la misma que ejecuta el CI)
+npm run build
+npm test
 ```
 
 El servidor estará disponible de inmediato en:
 👉 **`http://localhost:3000`**
 
 *(La base de datos SQLite `data/app.db` se creará e inicializará automáticamente con datos de prueba al arrancar el servidor por primera vez).*
+
+---
+
+## 🆕 Novedades del Avance 3 (`v3.0.0`)
+
+**Seguimiento de incidentes (GitHub Issues)**
+- Pestaña Issues activada, con plantillas de formulario para **Reporte de error** y **Solicitud de mejora** (`.github/ISSUE_TEMPLATE/`).
+- Etiquetas de tipo (`bug`, `enhancement`) y de prioridad (`P1-crítica`, `P2-alta`, `P3-media`, `P4-baja`); cada issue tiene un responsable y un comentario que justifica su prioridad.
+- Cada corrección se hace en una rama `fix/issue-n` o `feat/issue-n` y su PR cierra el issue con `Closes #n`.
+
+**Integración continua (GitHub Actions)**
+- Workflow `.github/workflows/ci.yml`: en cada push y en cada PR hacia `main` ejecuta `npm install`, `npm run build` y `npm test` con Node 22 y 24.
+- La regla «Proteger main» exige un PR con una aprobación y los dos checks del CI en verde antes de unir.
+
+**Formularios de registro en el panel**: el panel superadmin ya no es solo de lectura; cada módulo tiene su formulario (tenants, usuarios, colecciones y reportes) que envía a la API y muestra el error si lo hay.
+
+**Issues resueltos**
+
+| Issue | Tipo / prioridad | Resumen | PR |
+| :--- | :--- | :--- | :--- |
+| #21 | Mejora · P2 | CI con build y pruebas en GitHub Actions | #22 |
+| #23 | Bug · P3 | `/api/health` mostraba la versión `1.0.0` en vez de la de `package.json` | #24 |
+| #25 | Mejora · P3 | Sección de formularios en el panel | #26 |
+| #27 | Bug · P2 | `POST /api/reports/generate` inventaba `storageMb` y `apiCalls` | #31 |
+| #28 | Bug · P3 | `POST /api/tenants` aceptaba subdominios con espacios o símbolos | #32 |
+| #33 | Bug · P2 | `PATCH /api/users/:id/role` respondía 200 con un usuario inexistente | #41 |
+| #38 | Bug · P1 | `GET /api/data/collections/:id/records` no estaba publicada (404) | #42 |
+| #34 | Mejora · P3 | Formulario de tenants | #35 |
+| #36 | Mejora · P3 | Formulario de reportes | #39 |
+| #45 | Mejora · P3 | Formulario de usuarios | #43 |
+| #46 | Mejora · P3 | Formulario de colecciones | #47 |
 
 ---
 
