@@ -59,6 +59,10 @@ export const usersController = {
       if (!validRoles.includes(role)) {
         return res.status(400).json({ success: false, message: 'Rol no válido' });
       }
+      const existing = await db.select().from(users).where(eq(users.id, id));
+      if (existing.length === 0) {
+        return res.status(404).json({ success: false, message: 'Usuario no encontrado' });
+      }
       await db.update(users).set({ role }).where(eq(users.id, id));
       res.json({ success: true, message: `Rol actualizado a ${role}` });
     } catch (error) {
