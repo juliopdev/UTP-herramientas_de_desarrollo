@@ -18,3 +18,8 @@ test('POST /api/reports/generate guarda las métricas enviadas', async () => {
   assert.equal(json.data.storageMb, 12.5);
   assert.equal(json.data.apiCalls, 300);
 });
+
+test('el panel muestra el formulario de reportes', async () => {
+  const { text } = await srv.request('GET', '/');
+  assert.match(text, /data-api="\/api\/reports\/generate"/);
+});
