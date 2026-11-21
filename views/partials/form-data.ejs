@@ -1,5 +1,13 @@
-<!-- Formulario de Colecciones: lo completa Cristhian Palomino en su issue de mejora -->
-<div class="tarjeta">
+<!-- Formulario de Colecciones (Cristhian Palomino) -->
+<form data-api="/api/data/collections" class="tarjeta">
   <h2 class="text-base font-bold text-white">💾 Crear colección</h2>
-  <p class="text-xs text-slate-500">Pendiente.</p>
-</div>
+  <select name="tenantId" class="campo">
+    <% tenants.forEach(t => { %><option value="<%= t.id %>"><%= t.name %></option><% }) %>
+  </select>
+  <input name="name" required placeholder="Nombre de la colección (ej. productos)" class="campo">
+  <button class="boton">Crear</button>
+  <p data-msg class="text-xs text-rose-400"></p>
+  <ul class="text-xs text-slate-400 space-y-1">
+    <% collections.slice(-5).forEach(c => { %><li><%= c.name %> · <%= c.tenantId %></li><% }) %>
+  </ul>
+</form>

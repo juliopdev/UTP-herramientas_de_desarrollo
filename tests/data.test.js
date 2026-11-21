@@ -14,3 +14,8 @@ test('GET /api/data/collections/:id/records lista los registros de la colección
   assert.equal(status, 200);
   assert.equal(json.data.length, 1);
 });
+
+test('el panel muestra el formulario de colecciones', async () => {
+  const { text } = await srv.request('GET', '/');
+  assert.match(text, /data-api="\/api\/data\/collections"/);
+});
