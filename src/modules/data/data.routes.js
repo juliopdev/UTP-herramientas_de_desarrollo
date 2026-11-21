@@ -6,5 +6,6 @@ export const dataRouter = Router();
 // Endpoints del módulo de Datos Dinámicos (Integrante 2)
 dataRouter.get('/collections', dataController.listCollections);
 dataRouter.post('/collections', dataController.createCollection);
+dataRouter.get('/collections/:collectionId/records', dataController.listRecords);
 dataRouter.post('/collections/:collectionId/records', dataController.insertRecord);
 dataRouter.delete('/collections/:collectionId', dataController.deleteCollection);
