@@ -16,3 +16,8 @@ test('PATCH /api/users/:id/role actualiza un usuario existente', async () => {
     const { status } = await srv.request('PATCH', '/api/users/usr-001/role', { role: 'editor' });
     assert.equal(status, 200);
 });
+
+test('el panel muestra el formulario de registro de usuarios', async () => {
+    const { text } = await srv.request('GET', '/');
+    assert.match(text, /data-api="\/api\/users"/);
+});
